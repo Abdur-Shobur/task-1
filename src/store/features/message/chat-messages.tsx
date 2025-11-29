@@ -12,12 +12,11 @@ export const ChatMessages = () => {
     }
   );
 
-  // Ref to keep track of the last message
+  // ref for the last message
   const messageEndRef = useRef<HTMLDivElement>(null);
 
-  // Scroll to the bottom of the messages every time the data changes
+  // scroll to the bottom
   useEffect(() => {
-    // Delay scrolling to make sure the component has finished rendering
     const timeoutId = setTimeout(() => {
       if (messageEndRef.current) {
         messageEndRef.current.scrollIntoView({
@@ -25,10 +24,10 @@ export const ChatMessages = () => {
           block: 'end',
         });
       }
-    }, 100); // Adjust time as needed
+    }, 100);
 
-    return () => clearTimeout(timeoutId); // Clean up timeout
-  }, [data]); // This runs whenever data changes, i.e., new messages
+    return () => clearTimeout(timeoutId);
+  }, [data]);
 
   if (isLoading) {
     return <div>Loading...</div>;

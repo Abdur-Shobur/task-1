@@ -3,6 +3,7 @@ import { AuthType, RegisterFileds, RegisterType } from './auth.interface';
 
 export const api = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    // auth login
     login: builder.mutation<AuthType, { email: string; password: string }>({
       query: (payload) => ({
         url: `/login/`,

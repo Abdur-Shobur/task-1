@@ -5,21 +5,15 @@ import React, { useState } from 'react';
 import { useSendMessageMutation } from './apiSlice';
 
 const SendMessageForm = () => {
-  // Local state to manage message input
   const [messageContent, setMessageContent] = useState('');
   const [sendMessage, { isLoading, error }] = useSendMessageMutation();
   const { data: session, update: updateSession } = useSession();
   // Handle form submission
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: React.FormEvent) => {
+    e?.preventDefault();
 
-    // Only send a message if there's content
+    //   if content
     if (messageContent.trim()) {
-      // const payload: SendMessagePayload = {
-      //   session_id: env.tokenSession, // session ID
-      //   content: messageContent, // message content
-      // };
-
       const existingSession = session?.chat_sessions?.[0]?.session_id;
       const newMessage = {
         content: messageContent,
@@ -32,19 +26,27 @@ const SendMessageForm = () => {
       };
 
       try {
-        // Send the message using the sendMessage mutation
+        // Send the message
         const response = await sendMessage(
           existingSession ? existingSessionMessage : newMessage
         ).unwrap();
-        console.log({ response });
+
         await updateSession({
           ...session,
           chat_sessions: [response.session, ...(session?.chat_sessions || [])],
         });
-        setMessageContent(''); // Clear the input field
+        setMessageContent('');
       } catch (err) {
         console.error('Error sending message:', err);
       }
+    }
+  };
+
+  // Handle keyboard shortcuts (Ctrl+Enter or Cmd+Enter to send)
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      handleSubmit();
     }
   };
 
@@ -58,9 +60,10 @@ const SendMessageForm = () => {
         <textarea
           value={messageContent}
           onChange={(e) => setMessageContent(e.target.value)}
-          placeholder="Type your message here..."
+          onKeyDown={handleKeyDown}
+          placeholder="Type your message here... (Ctrl+Enter to send)"
           rows={1}
-          className="flex-grow bg-transparent outline-none text-sm text-gray-700 placeholder-gray-400 rounded-l-full py-2 px-4 resize-none"
+          className="grow bg-transparent outline-none text-sm text-gray-700 placeholder-gray-400 rounded-l-full py-2 px-4 resize-none"
         />
 
         {/* Send Button */}
