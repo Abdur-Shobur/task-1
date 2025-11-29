@@ -1,23 +1,23 @@
 @import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --main: rgba(18, 140, 126, 1);
+  --background: #ffffff; /* Main background color */
+  --foreground: #171717; /* Main text color */
+  --main: rgba(18, 140, 126, 1); /* Primary brand color (teal/green) */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-railway: var(--font-railway);
-  --color-main: var(--main);
+  --font-sans: var(--font-geist-sans); /* Geist Sans font variable */
+  --font-railway: var(--font-railway); /* Raleway font variable */
+  --color-main: var(--main); /* Primary brand color */
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-railway);
+  font-family: var(--font-railway); /* Use Raleway as default font */
 }
 
 .main-container {
