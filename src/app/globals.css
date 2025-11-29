@@ -1,0 +1,48 @@
+@import 'tailwindcss';
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --main: rgba(18, 140, 126, 1);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-railway: var(--font-railway);
+  --color-main: var(--main);
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-railway);
+}
+
+.main-container {
+  max-width: 1300px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 0 auto;
+}
+
+.bg-linear {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 1),
+    rgba(215.77, 255, 234.11, 1) 100%
+  );
+}
+
+.text-linear {
+  background: linear-gradient(
+    90deg,
+    rgba(18, 140, 126, 1),
+    rgba(37, 211, 102, 1) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
